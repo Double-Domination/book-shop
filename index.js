@@ -1,10 +1,28 @@
-import { HTMLConverter } from './dom-factory.js';
+import { HTMLConverter } from './html-converter.js';
+import { DOMFactory } from './dom-factory.js';
 
 const rootElement = document.getElementById('root');
 
-const particle = HTMLConverter('<p>first</p> <p>second</p> ');
+const testElement = new DOMFactory({
+  tagName: 'div',
+  className: 'rnd-class',
+  nodeContent: 'random str',
+});
+// rootElement.renderElement(testElement);
+testElement.renderElement(rootElement);
 
-rootElement.append(particle);
+// export class IndexPage extends DOMFactory {
+//   constructor() {
+//     super({
+//       tagName: 'div',
+//       calssName: 'indexpage',
+//     });
+//   }
+// }
+
+// const particle = HTMLConverter('<p>first</p> <p>second</p> ');
+
+// rootElement.append(particle);
 // const fragment = document.createDocumentFragment();
 
 // const parsedTemplate = document.createElement('template');
@@ -45,4 +63,3 @@ rootElement.append(particle);
 // rootElement.appendChild(fragmented);
 
 // console.log(fragmented.children, '>>> fragmented');
-

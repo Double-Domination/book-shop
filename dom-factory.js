@@ -1,11 +1,32 @@
-export function HTMLConverter(htmlString) {
-  const docFragment = document.createDocumentFragment();
+import { HTMLConverter } from './html-converter.js';
 
-  const parsedTemplate = document.createElement('template');
+// export type IDOMNodeConstructor = {
+//   tagName?: string;
+//   className?: string;
+//   nodeContent?: string;
+//   useTemplate?: string;
+// };
 
-  parsedTemplate.innerHTML = htmlString;
+export class DOMFactory {
+  constructor(DOMInitialParam) {
+    // this.domNode = ''; //empty dom enement
+    const el = document.createElement(DOMInitialParam?.tagName || 'div');
+    el.className = DOMInitialParam?.className || '';
+    el.textContent = DOMInitialParam?.nodeContent || '';
 
-  docFragment.append(parsedTemplate);
+    this.domNode = el;
 
-  return docFragment;
+    if (DOMInitialParam?.useTemplate) {
+      const constructedMarkup = HTMLConverter(DOMInitialParam.useTemplate);
+      this.domNode.appendChild(constructedMarkup);
+    }
+  }
+
+  destroyDomElement() {
+    this.domNode.remove();
+  }
+
+  renderElement(parentDomNode) {
+    parentDomNode.append(this.domNode);
+  }
 }
